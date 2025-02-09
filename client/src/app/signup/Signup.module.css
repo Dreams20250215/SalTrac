@@ -1,7 +1,7 @@
-.container {
+.formElementsContainer {
     max-width: 400px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 30px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #fff;
@@ -18,14 +18,13 @@
 
 .input {
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
 }
 
-.button {
-    padding: 10px;
-    background-color: #add3ff;
-    border-radius: 4px;
+.linkContainer {
+    width: 100%;
+    text-align: center;
 }

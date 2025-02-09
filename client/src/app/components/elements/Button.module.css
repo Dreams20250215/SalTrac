@@ -1,0 +1,12 @@
+.container {
+    text-align: center;
+    width: 100%;
+}
+
+.button {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #77b7ff;
+    border: none;
+    border-radius: 8px;
+}
