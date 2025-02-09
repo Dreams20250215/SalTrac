@@ -3,7 +3,7 @@ import Button from "@/app/components/elements/Button"
 import Subtitle from "@/app/components/elements/Subtitle"
 import { useState } from "react";
 import { signupUser } from "@/app/lib/getUser";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
     const [email, setEmail] = useState("");
