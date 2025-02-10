@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+}
+
+.input {
+    padding: 5px;
+    margin: 20px 0 10px 10%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}

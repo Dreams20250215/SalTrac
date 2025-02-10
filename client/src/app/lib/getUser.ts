@@ -1,16 +1,16 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 type SignupData = {
-    username: string,
-    email: string,
-    password: string,
+    username: string;
+    email: string;
+    password: string;
 };
 
 type LoginData = {
-    username: string,
-    password: string,
+    username: string;
+    password: string;
 };
 
 export const signupUser = async (e, data: SignupData, router) => {
@@ -19,7 +19,7 @@ export const signupUser = async (e, data: SignupData, router) => {
         router.push("/login");
     } catch (error) {
         console.error("Error signing up", error);
-        alert("Sign up failed")
+        alert("Sign up failed");
     }
 }
 

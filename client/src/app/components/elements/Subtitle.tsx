@@ -1,10 +1,10 @@
-import styles from "./Subtitle.module.css"
+import styles from "./Subtitle.module.css";
 
-type SubtitleProps = {
+type Subtitle = {
     label: string;
 };
 
-function Subtitle(props: SubtitleProps) {
+export default function Subtitle(props: Subtitle) {
     const label = props.label
 
     return (
@@ -13,5 +13,3 @@ function Subtitle(props: SubtitleProps) {
         </div>
     );
 }
-
-export default Subtitle;

@@ -1,6 +1,6 @@
 import styles from "./SignupForm.module.css"
 import Button from "@/app/components/elements/Button"
-import Subtitle from "@/app/components/elements/Subtitle"
+import Subtitle from "@/app/components/elements/FormTitle"
 import { useState } from "react";
 import { signupUser } from "@/app/lib/getUser";
 import { useRouter } from "next/navigation";

@@ -1,6 +1,6 @@
-import styles from "./PostedList.module.css";
+import styles from "./PostedList.module.css"
 
-export default function PostedList() {
+export function PostedList() {
     return (
         <>
             <div className={styles.container}>
