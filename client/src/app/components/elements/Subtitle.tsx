@@ -9,7 +9,7 @@ export default function Subtitle(props: Subtitle) {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.subtitle}>{label}</h2>
+            <h2 className={styles.title}>{label}</h2>
         </div>
     );
 }

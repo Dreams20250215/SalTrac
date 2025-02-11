@@ -11,7 +11,7 @@ export default function Profile() {
 
     useEffect(() => {
         const getProfile = async () => {
-            const data = await getProfile();
+            const data = await profileData();
             setProfile(data);
             setLoading(false);
         };
