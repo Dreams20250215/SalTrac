@@ -52,6 +52,8 @@ export default function PostPage() {
 
                     const reader = new FileReader();
                     reader.onload = (event) => {
+                        if (!event.target || !event.target.result) return;
+
                         const img = new Image();
                         img.src = event.target.result as string;
                         img.onload = () => {

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { profileData, ProfileData } from "@/app/lib/getProfile";
+import { profileData, ProfileInfo } from "@/app/lib/getProfile";
 import styles from "./page.module.css";
 import Subtitle from "@/app/components/elements/Subtitle";
 
 export default function Profile() {
-    const [profile, setProfile] = useState<ProfileData | void | null>(null);
+    const [profile, setProfile] = useState<ProfileInfo | void | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
