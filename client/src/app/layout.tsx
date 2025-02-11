@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { M_PLUS_Rounded_1c } from "next/font/google";
 import styles from "./layout.module.css"
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const MPLUSRounded1C = M_PLUS_Rounded_1c({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -25,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${MPLUSRounded1C.className}`}>
 
         <header>
           <div className={styles.headerUpper}>
