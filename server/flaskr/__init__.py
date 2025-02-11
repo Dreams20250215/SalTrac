@@ -1,10 +1,6 @@
 import os
 from flask import Flask
 
-
-import os 
-from flask import Flask 
-
 # Application factory
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)     # instance_relative_configは設定ファイルの場所がインスタンスフォルダから相対的に示されることをappに伝える
