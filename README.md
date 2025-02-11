@@ -38,11 +38,11 @@ docker-compose up -d
 
 ```sh
 # フロントエンド起動
-cd server
+cd client
 npm run dev
 
 # バックエンド起動
-cd ../client
+cd ../server
 python app.py
 ```
 
