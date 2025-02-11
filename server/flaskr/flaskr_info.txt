@@ -1,0 +1,2 @@
+flaskrディレクトリ
+アプリケーションのコードとファイルを含んだPythonのpackage
