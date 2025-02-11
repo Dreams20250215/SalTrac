@@ -1,6 +1,6 @@
 import styles from "./LoginForm.module.css"
 import Button from "@/app/components/elements/Button"
-import Subtitle from "@/app/components/elements/FormTitle"
+import FormTitle from "@/app/components/elements/FormTitle";
 import { useState } from "react";
 import { loginUser } from "@/app/lib/getUser";
 import { useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ export default function LoginForm() {
     return (
         <form className={styles.form} onSubmit={handleLogin}>
             <div className={styles.formElementsContainer}>
-                <Subtitle label="ログイン" />
+                <FormTitle label="ログイン" />
                 <label className={styles.label}>username:</label>
                 <input
                     name="username"

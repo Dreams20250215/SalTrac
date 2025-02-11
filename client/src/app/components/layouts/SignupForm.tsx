@@ -1,6 +1,6 @@
 import styles from "./SignupForm.module.css"
 import Button from "@/app/components/elements/Button"
-import Subtitle from "@/app/components/elements/FormTitle"
+import FormTitle from "@/app/components/elements/FormTitle";
 import { useState } from "react";
 import { signupUser } from "@/app/lib/getUser";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ export default function SignupForm() {
     return (
         <form className={styles.form} onSubmit={handleSignup}>
             <div className={styles.formElementsContainer}>
-                <Subtitle label="サインアップ" />
+                <FormTitle label="サインアップ" />
                 <label className={styles.label}>Email address:</label>
                 <input
                     name="Email address"

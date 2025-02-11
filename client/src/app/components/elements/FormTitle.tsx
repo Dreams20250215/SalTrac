@@ -9,7 +9,7 @@ export default function FormTitle(props: FormTitleProps) {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.subTitle}>{label}</h2>
+            <h2 className={styles.title}>{label}</h2>
         </div>
     );
 }
