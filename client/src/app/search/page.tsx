@@ -59,15 +59,17 @@ export default function Search() {
     };
 
     return (
-        <div className={styles.container}>
-            <Title label="検索" />
-            <input
-                type="text"
-                value={searchQuery}
-                placeholder="ユーザ名を入力して検索..."
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.input}
-            />
+        <>
+            <div className={styles.container}>
+                <Title label="検索" />
+                <input
+                    type="text"
+                    value={searchQuery}
+                    placeholder="ユーザ名を入力して検索..."
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={styles.input}
+                />
+            </div>
             {loading && <p>Loading...</p>}
             <ul className={styles.userList}>
                 {users.map((user) => (
@@ -93,6 +95,6 @@ export default function Search() {
                     </li>
                 ))}
             </ul>
-        </div>
+        </>
     );
 }
