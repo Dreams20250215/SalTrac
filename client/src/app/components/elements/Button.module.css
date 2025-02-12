@@ -6,8 +6,10 @@
 .button {
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #a9cdd4;
+    min-width: 70px;
     border: none;
     border-radius: 8px;
+    font-size: 15px;
+    background-color: #a9cdd4;
     cursor: pointer;
 }
