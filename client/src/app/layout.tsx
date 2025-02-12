@@ -23,21 +23,29 @@ export default function RootLayout({
       <body className={`${MPLUSRounded1C.className}`}>
 
         <header>
-          <div className={styles.headerUpper}>
+          <div className={styles.upperHeader}>
             <div className={styles.headerLogoWrapper}>
               <a href="/">
                 <img src="./SalTrac_logo.png" className={styles.headerLogo} alt="header-logo" />
               </a>
             </div>
-            <nav className={styles.nav}>
+            <nav className={styles.upperNav}>
               <ul className={styles.listWrapper}>
                 <li className={styles.navItem}><a href="/">Home</a></li>
                 <li className={styles.navItem}><a href="/about">About</a></li>
-                <li className={styles.navItem}><a href="/contact">Contact</a></li>
+                <li className={styles.navItem}><a href="/logout">Logout</a></li>
               </ul>
             </nav>
           </div>
-          <div className={styles.headerLower}></div>
+          <div className={styles.lowerHeader}>
+            <nav className={styles.lowerNav}>
+              <ul className={styles.listWrapper}>
+                <li className={styles.navItem}><a href="/search">Search</a></li>
+                <li className={styles.navItem}><a href="/profile">Profile</a></li>
+                <li className={styles.navItem}><a href="/signup">Signup</a></li>
+              </ul>
+            </nav>
+          </div>
         </header>
 
         {children}
