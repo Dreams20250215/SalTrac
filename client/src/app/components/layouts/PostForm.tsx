@@ -9,9 +9,11 @@ export default function PostForm() {
         <>
             <form>
                 <div className={styles.formContainer}>
-                    <div className={styles.imageFrame}></div>
+                    <div className={styles.imageFrame}>
+                        <img src="./no-image.png" className={styles.postImage} alt="post-image" />
+                    </div>
                     <div className={styles.textContainer}>
-                        <p className={styles.sentence}>本文</p>
+                        <p className={styles.sentence}>健康的な生活をシェアしよう...!</p>
                         <p className={styles.nutrition}>塩分量: g</p>
                     </div>
                 </div>
@@ -19,6 +21,7 @@ export default function PostForm() {
                     <input type="file" name="photo"/>
                 </div>
             </form>
+            <Button label="投稿" />
         </>
     );
 }

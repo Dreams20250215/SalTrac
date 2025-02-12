@@ -9,6 +9,7 @@ export default function Home() {
     <div>
       <Title label="投稿する" />
       <PostForm />
-    </div>
+      <Title label="投稿一覧" />
+      </div>
   );
 }
