@@ -7,7 +7,7 @@ export type Post = {
     image: string;
     text: string;
     tags: string;
-}
+};
 
 export const fetchPosts = async () => {
     try {
@@ -17,7 +17,7 @@ export const fetchPosts = async () => {
         console.error("Failed to fetch posts:", error);
         throw error;
     }
-}
+};
 
 export const postData = async (formData: FormData) => {
     try {
@@ -27,4 +27,4 @@ export const postData = async (formData: FormData) => {
     } catch (error) {
         throw error;
     }
-}
+};

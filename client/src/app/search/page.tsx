@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { searchUsers, User } from "@/app/lib/searchUsers";
-import { profileData, ProfileInfo } from "@/app/lib/getProfile";
+import { profileData, ProfileInfo } from "@/app/lib/getMyProfile";
 import { followUser } from "@/app/lib/followUser";
 import styles from "./page.module.css";
 import Title from "@/app/components/elements/Title";

@@ -13,15 +13,15 @@
 }
 
 .imageFrame {
-    width: auto;
+    aspect-ratio: 1 / 1;
     height: 100%;
-    border-radius: 15px;
     background-color: white;
 }
 
 .postImage {
     width: 100%;
     height: 100%;
+    border-radius: 15px;
 }
 
 .textContainer {
