@@ -35,8 +35,12 @@
     margin: 2% 0;
 }
 
-.changeFile {
-    margin: 20px 0;
-    width: 100%;
-    text-align: center;
+.infoContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userIcon {
+    margin-right: 2%;
+    height: 30px;
 }

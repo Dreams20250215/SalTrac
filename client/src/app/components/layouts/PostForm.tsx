@@ -9,7 +9,7 @@ export default function PostForm() {
     return (
         <>
             <form>
-                <div className={styles.formContainer}>
+                <div className={styles.container}>
                     <div className={styles.imageFrame}>
                         <img src={ profileImage } className={styles.postImage} alt="post-image" />
                     </div>
