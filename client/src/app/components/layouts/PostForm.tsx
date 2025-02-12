@@ -1,14 +1,12 @@
 import styles from "./PostForm.module.css";
 import { useState, useEffect } from "react";
 import { fetchPosts, postData, Post } from "@/app/lib/getPost";
-import Title from "@/app/components/elements/Title";
 import Button from "@/app/components/elements/Button";
 
 export default function PostForm() {
 
     return (
         <>
-            <Title label="投稿する" />
             <form>
                 <div className={styles.formContainer}>
                     <div className={styles.imageFrame}></div>
