@@ -1,4 +1,34 @@
 .container {
-    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.imageContainer {
+    margin: 0 5%;
+    width: 200px;
+    height: 200px;
+}
+
+.userIcon {
+    width: 100%;
+}
+
+.profileInfo {
+    padding-bottom: 10px;
+    width: 60%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    font-size: 2vw;
+}
+
+.status {
     text-align: center;
+    display: flex;
+}
+
+.itemContainer {
+    width: 30%;
+    display: flex;
+    flex-flow: column;
 }

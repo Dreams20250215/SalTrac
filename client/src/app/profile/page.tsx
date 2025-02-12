@@ -6,30 +6,32 @@ import styles from "./page.module.css";
 import Title from "@/app/components/elements/Title";
 
 export default function Profile() {
-    const [profile, setProfile] = useState<ProfileInfo | void | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const getProfile = async () => {
-            const data = await profileData();
-            setProfile(data);
-            setLoading(false);
-        };
-        getProfile();
-    }, []);
-
-    if (loading) return <p>Loading...</p>;
-    if (!profile) return <p>Profile not found.</p>;
+    const [icon, setIcon] = useState("./user_default.png");
 
     return (
         <>
             <Title label="プロフィール" />
             <div className={styles.container}>
-                <img src={profile.icon} alt={profile.username} className={styles.profileImage} />
-                <p className={styles.username}>{profile.username}</p>
-                <p className={styles.stats}>
-                    Following: {profile.follow} | Follower: {profile.follower}
-                </p>
+                <div className={styles.imageContainer}>
+                    <img src={icon} className={styles.userIcon} alt="usr-icon" />
+                </div>
+                <div className={styles.profileInfo}>
+                    <h3>ユーザー名: guest</h3>
+                    <div className={styles.status}>
+                        <div className={styles.itemContainer}>
+                            <h3 className={styles.statusItem}>ポスト</h3>
+                            <p>3</p>
+                        </div>
+                        <div className={styles.itemContainer}>
+                            <h3 className={styles.statusItem}>フォロー</h3>
+                            <p>3</p>
+                        </div>
+                        <div className={styles.itemContainer}>
+                            <h3 className={styles.statusItem}>フォロワー</h3>
+                            <p>3</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );
