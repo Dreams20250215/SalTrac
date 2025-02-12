@@ -2,14 +2,15 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-export type Post = {
-    id: number;
+export type PostData = {
+    userid: number;
+    postid: number;
     image: string;
     text: string;
-    tags: string;
+    salt: number;
 };
 
-export const fetchPosts = async () => {
+export const fetchPosts = async (): Promise<PostData[]> => {
     try {
         const response = await axios.get(`${API_URL}/posts`);
         return response.data;

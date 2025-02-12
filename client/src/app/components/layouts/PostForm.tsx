@@ -4,7 +4,7 @@ import { fetchPosts, postData, Post } from "@/app/lib/getMyPost";
 import Button from "@/app/components/elements/Button";
 
 export default function PostForm() {
-    const [postImage, setPostImage] = useState("./no-image.png");
+    const [postImage, setPostImage] = useState("./no_image.png");
 
     const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
