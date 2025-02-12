@@ -14,22 +14,6 @@ export default function Post() {
                 setPost(postData);
             } catch (error) {
                 console.error("Failed to get post", error);
-                setPost([
-                    {
-                        userid: 1,
-                        postid: 101,
-                        image: "./no_image.png",
-                        text: "初めての投稿です！",
-                        salt: 12345
-                    },
-                    {
-                        userid: 2,
-                        postid: 102,
-                        image: "https://example.com/image2.jpg",
-                        text: "これは2つ目の投稿",
-                        salt: 67890
-                    }
-                ]);
             }
         }
         handleGetPost();
