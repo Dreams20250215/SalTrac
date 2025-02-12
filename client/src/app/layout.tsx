@@ -41,8 +41,8 @@ export default function RootLayout({
             <nav className={styles.lowerNav}>
               <ul className={styles.listWrapper}>
                 <li className={styles.navItem}><a href="/search">Search</a></li>
+                <li className={styles.navItem}><a href="/post">Post</a></li>
                 <li className={styles.navItem}><a href="/profile">Profile</a></li>
-                <li className={styles.navItem}><a href="/signup">Signup</a></li>
               </ul>
             </nav>
           </div>
