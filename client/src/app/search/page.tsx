@@ -5,7 +5,7 @@ import { searchUsers, User } from "@/app/lib/searchUsers";
 import { profileData, ProfileInfo } from "@/app/lib/getProfile";
 import { followUser } from "@/app/lib/followUser";
 import styles from "./page.module.css";
-import Subtitle from "@/app/components/elements/Subtitle";
+import Title from "@/app/components/elements/Title";
 
 export default function Search() {
     const [users, setUsers] = useState<User[]>([]);
@@ -60,7 +60,7 @@ export default function Search() {
 
     return (
         <div className={styles.container}>
-            <Subtitle label="検索" />
+            <Title label="検索" />
             <input
                 type="text"
                 value={searchQuery}

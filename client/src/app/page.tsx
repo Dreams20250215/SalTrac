@@ -1,12 +1,12 @@
 "use client"
 
 import styles from "./page.module.css";
-import PostPage from "@/app/components/layouts/PostPage";
+import PostForm from "@/app/components/layouts/PostForm";
 
 export default function Home() {
   return (
     <div>
-      <PostPage />
+      <PostForm />
     </div>
   );
 }

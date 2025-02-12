@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { profileData, ProfileInfo } from "@/app/lib/getProfile";
 import styles from "./page.module.css";
-import Subtitle from "@/app/components/elements/Subtitle";
+import Title from "@/app/components/elements/Title";
 
 export default function Profile() {
     const [profile, setProfile] = useState<ProfileInfo | void | null>(null);
@@ -23,7 +23,7 @@ export default function Profile() {
 
     return (
         <>
-            <Subtitle label="プロフィール" />
+            <Title label="プロフィール" />
             <div className={styles.container}>
                 <img src={profile.icon} alt={profile.username} className={styles.profileImage} />
                 <p className={styles.username}>{profile.username}</p>
