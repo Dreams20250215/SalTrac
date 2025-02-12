@@ -5,6 +5,10 @@
     height: 600px;
 }
 
+.title {
+    margin-bottom: 20px;
+}
+
 .textContainer {
     text-align: center;
 }

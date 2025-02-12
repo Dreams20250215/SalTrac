@@ -26,7 +26,7 @@ export default function RootLayout({
           <div className={styles.headerUpper}>
             <div className={styles.headerLogoWrapper}>
               <a href="/">
-                <img src="./SalTrac-logo.png" className={styles.headerLogo} alt="header-logo" />
+                <img src="./SalTrac_logo.png" className={styles.headerLogo} alt="header-logo" />
               </a>
             </div>
             <nav className={styles.nav}>
