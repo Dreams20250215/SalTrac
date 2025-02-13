@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { searchPosts, PostData } from "@/app/lib/getMyPost";
 import styles from "./PostLayout.module.css";
 
 type Post = {
