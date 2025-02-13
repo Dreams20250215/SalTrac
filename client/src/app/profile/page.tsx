@@ -4,35 +4,32 @@ import { useState, useEffect } from "react";
 import { profileData, ProfileInfo } from "@/app/lib/getMyProfile";
 import styles from "./page.module.css";
 import Title from "@/app/components/elements/Title";
+import ProfileLayout from "@/app/components/layouts/ProfileLayout";
+
+const defaultProfile: ProfileInfo = {
+    userid: 0,
+    username: "guest",
+    icon: "./user_default.png",
+    post: 0,
+    follow: 0,
+    follower: 0,
+};
 
 export default function Profile() {
-    const [icon, setIcon] = useState("./user_default.png");
+    const [profile, setProfile] = useState(defaultProfile);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const data = await profileData();
+            setProfile(data ?? defaultProfile);
+        };
+        fetchProfile();
+    }, []);
 
     return (
         <>
             <Title label="プロフィール" />
-            <div className={styles.container}>
-                <div className={styles.imageContainer}>
-                    <img src={icon} className={styles.userIcon} alt="usr-icon" />
-                </div>
-                <div className={styles.profileInfo}>
-                    <h3>ユーザー名: guest</h3>
-                    <div className={styles.status}>
-                        <div className={styles.itemContainer}>
-                            <h3 className={styles.statusItem}>ポスト</h3>
-                            <p>3</p>
-                        </div>
-                        <div className={styles.itemContainer}>
-                            <h3 className={styles.statusItem}>フォロー</h3>
-                            <p>3</p>
-                        </div>
-                        <div className={styles.itemContainer}>
-                            <h3 className={styles.statusItem}>フォロワー</h3>
-                            <p>3</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ProfileLayout profile={profile} />
         </>
     );
 }

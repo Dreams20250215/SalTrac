@@ -10,7 +10,7 @@ export type PostData = {
     salt: number;
 };
 
-export const fetchPosts = async (): Promise<PostData[]> => {
+export const searchPosts = async (): Promise<PostData[]> => {
     try {
         const response = await axios.get(`${API_URL}/posts`);
         return response.data;

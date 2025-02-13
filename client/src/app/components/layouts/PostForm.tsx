@@ -1,6 +1,5 @@
 import styles from "./PostForm.module.css";
-import { useState, useEffect, ChangeEvent } from "react";
-import { fetchPosts, postData, Post } from "@/app/lib/getMyPost";
+import { useState, ChangeEvent } from "react";
 import Button from "@/app/components/elements/Button";
 
 export default function PostForm() {

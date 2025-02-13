@@ -1,30 +1,44 @@
 "use client";
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { searchPosts, PostData } from "@/app/lib/getMyPost";
 import Title from "@/app/components/elements/Title";
 import PostForm from "@/app/components/layouts/PostForm";
+import PostLayout from "@/app/components/layouts/PostLayout";
 
 
 export default function Post() {
-    const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
+    const [myPosts, setMyPosts] = useState<PostData[]>([]);
 
-    const renderPost = () => {
-        if (loading) {
-            return <p className={styles.statusMessage}>読み込み中です...</p>;
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const postsData = await searchPosts();
+                setMyPosts(postsData);
+            } catch (error) {
+                console.error("Failed to get post", error);
+            }
         }
-        if (posts.length === 0) {
-            return <p className={styles.statusMessage}>まだ投稿はありません</p>;
-        }
-    };
+        fetchPosts();
+    }, []);
 
     return (
         <>
             <Title label="投稿する" />
             <PostForm />
             <Title label="投稿一覧" />
-            <div className={styles.container}>{renderPost()}</div>
+            {myPosts.length === 0 ? (
+                <div className={styles.textContainer}>
+                    <p className={styles.statusMessage}>まだ投稿はありません</p>
+                </div>
+            ) : (
+                myPosts.map((post) => (
+                    <div key={post.postid}>
+                        <PostLayout postData={post} />
+                    </div>
+                ))
+            )}
         </>
     );
 }

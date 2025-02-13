@@ -1,9 +1,0 @@
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-.postItemContainer {
-    max-width: 30%;
-}
