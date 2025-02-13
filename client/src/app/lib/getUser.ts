@@ -22,7 +22,7 @@ export const signupUser = async (e: React.FormEvent<HTMLFormElement>, data: Sign
         console.error("Error signing up", error);
         alert("Sign up failed");
     }
-}
+};
 
 export const loginUser = async (e: React.FormEvent<HTMLFormElement>, data: LoginData, router: AppRouterInstance) => {
     try {

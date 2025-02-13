@@ -21,7 +21,7 @@ export default function PostForm() {
 
     const handleUploadPost = async () => {
         if (!imageFile || !text || !salt) {
-            alert("すべての項目を入力してください")
+            alert("すべての項目を入力してください");
             return;
         }
 
