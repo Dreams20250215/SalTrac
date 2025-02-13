@@ -28,7 +28,7 @@
 .textContainer {
     width: 65%;
     padding: 0 0 10px 10px;
-    font-size: clamp(0.5rem, calc(0.6rem + 0.9vw), 1.6rem);
+    font-size: clamp(0.5rem, calc(0.6rem + 0.9vw), 1.2rem);
 }
 
 .sentence {
@@ -38,7 +38,7 @@
     height: 75%;
     resize: none;
     border: none;
-    font-size: clamp(0.5rem, calc(0.6rem + 0.9vw), 1.6rem);
+    font-size: clamp(0.5rem, calc(0.6rem + 0.9vw), 1.2rem);
 }
 
 .sentence:focus {
