@@ -32,8 +32,33 @@
 }
 
 .sentence {
-    height: 75%;
+    padding: 8px;
     margin: 2% 0;
+    width: 80%;
+    height: 75%;
+    resize: none;
+    border: none;
+    font-size: clamp(0.5rem, calc(0.6rem + 0.9vw), 1.6rem);
+}
+
+.sentence:focus {
+    outline: none;
+}
+
+.nutrition {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.saltMass {
+    width: 50px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 1rem;
 }
 
 .changeFile {
