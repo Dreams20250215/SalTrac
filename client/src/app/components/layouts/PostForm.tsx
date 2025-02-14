@@ -7,7 +7,7 @@ export default function PostForm() {
     const [postImage, setPostImage] = useState("./no_image.png");
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [text, setText] = useState("");
-    const [salt, setSalt] = useState("");
+    const [salt, setSalt] = useState(0);
 
     const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -28,7 +28,11 @@ export default function PostForm() {
         const formData = new FormData();
         formData.append("image", imageFile);
         formData.append("text", text);
-        formData.append("salt", salt);
+        formData.append("salt", salt.toString());
+
+        for (let pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+        }
 
         const response = await uploadPost(formData);
     };
@@ -43,7 +47,12 @@ export default function PostForm() {
                     <div className={styles.textContainer}>
                         <textarea className={styles.sentence} value={text} placeholder="健康的な生活をシェアしよう...！" onChange={(e) => setText(e.target.value)}></textarea>
                         <p className={styles.nutrition}>
-                            塩分量: <input className={styles.saltMass} type="number" value={salt} onChange={(e) => setSalt(e.target.value)}></input> g
+                            塩分量: <input className={styles.saltMass}
+                                        type="number" min={0}
+                                        value={salt}
+                                        onChange={(e) => setSalt(Number(e.target.value))}
+                                    >
+                                    </input> g
                         </p>
                     </div>
                 </div>

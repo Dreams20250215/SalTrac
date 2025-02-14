@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
 from datetime import datetime
 
 db = SQLAlchemy()
@@ -16,3 +15,13 @@ class User(db.Model):
     follower = db.Column(db.Integer, nullable=False, default=0)
     icon = db.Column(db.Text, nullable=True, default="./user_default.png")
 
+class Post(db.Model):
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    image = db.Column(db.Text, nullable=False, default="./no_image.png")
+    text = db.Column(db.Text, nullable=False)
+    salt = db.Column(db.Integer, primary_key=True)
+
+    user_rel = db.relationship("User", backref=db.backref("posts", lazy=True))

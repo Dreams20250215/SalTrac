@@ -19,6 +19,7 @@ export default function Profile() {
     const [profile, setProfile] = useState(defaultProfile);
 
     useEffect(() => {
+
         const fetchProfile = async () => {
             const data = await profileData();
             setProfile(data ?? defaultProfile);

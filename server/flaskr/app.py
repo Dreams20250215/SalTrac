@@ -1,6 +1,7 @@
 import os
 import json
 import sqlite3
+import traceback
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -8,7 +9,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from datetime import datetime
-from models import db, User
+from models import db, User, Post
 import pytz
 
 load_dotenv()
@@ -28,12 +29,10 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), nullable=False)
-    body = db.Column(db.String(300), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(pytz.timezone("Asia/Tokyo")))
+UPLOAD_FOLDER = "uploads"
 
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 @app.route("/recommends", methods=["GET"])
 def get_posts():
@@ -51,15 +50,18 @@ def get_posts():
     ]
     return jsonify(posts_data)
 
-@app.route("/mypost", methods=["POST"])
+@app.route("/post", methods=["POST"])
+@jwt_required()
 def upload_post():
-    image = request.files["image"]
-    text = request.form["text"]
-    salt = request.form["salt"]
+    image = request.files.get("image")
+    text = request.form.get("text", "")
+    salt = request.form.get("salt", 0, type=int)
     userid = get_jwt_identity()
 
-    image_path = os.path.join("uploads", image.filename)
-    image.save(image_path)
+    image_path = "./no_image.png"
+    if image:
+        image_path = os.path.join(UPLOAD_FOLDER, image.filename)
+        image.save(image_path)
 
     new_post = Post(user=userid, image=image_path, text=text, salt=salt)
     db.session.add(new_post)
@@ -72,12 +74,7 @@ def upload_post():
 def get_profile():
     user_id = get_jwt_identity()
 
-    if not user_id:
-        return jsonify({"message": "Invalid token"}), 401
-
     user = User.query.get(user_id)
-    if not user:
-        return jsonify({"message": "User not found"}), 404
 
     profile_data = {
         "userid": user.id,
@@ -89,6 +86,30 @@ def get_profile():
     }
 
     return jsonify(profile_data), 200
+
+@app.route("/mypost", methods=["GET"])
+@jwt_required()
+def get_myposts():
+    user_id = get_jwt_identity()
+    print(f"[DEBUG] user_id: {user_id}")
+
+    user = User.query.get(user_id)
+    if not user:
+        print("[ERROR] User not found")
+        return jsonify({"error": "User not found"}), 404
+
+    myposts = Post.query.filter_by(user_id=user.id).all()
+    print(f"[DEBUG] Retrieved {len(myposts)} posts")
+
+    myposts_data = [{
+        "postid": post.id,
+        "image": post.image,
+        "text": post.text,
+        "salt": post.salt,
+    } for post in myposts]
+
+    return jsonify(myposts_data), 200
+
 
 @app.route("/signup", methods=["POST"])
 def signup():

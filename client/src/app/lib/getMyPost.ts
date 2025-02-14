@@ -11,20 +11,13 @@ export type PostData = {
 };
 
 export const searchPosts = async (): Promise<PostData[]> => {
-    try {
-        const response = await axios.get(`${API_URL}/mypost`);
-        return response.data;
-    } catch (error) {
-        console.error("Failed to fetch posts:", error);
-        throw error;
-    }
-};
+    const token = localStorage.getItem("token");
 
-export const postData = async (formData: FormData) => {
     try {
-        await axios.post(`${API_URL}/upload`, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
+        const response = await axios.get(`${API_URL}/mypost`, {
+            headers: { Authorization: `Bearer ${token}` },
         });
+        return response.data;
     } catch (error) {
         throw error;
     }

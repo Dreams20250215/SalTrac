@@ -3,11 +3,13 @@ import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 export const uploadPost = async (formData: FormData) => {
+    const token = localStorage.getItem("access_token");
+
     try {
         const response = await axios.post(`${API_URL}/post`, formData, {
             headers: {
-                "Content-Type": "multipart/form-data",
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return response.data;
     } catch (error) {
