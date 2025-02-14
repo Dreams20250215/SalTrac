@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -29,7 +28,7 @@ export const loginUser = async (e: React.FormEvent<HTMLFormElement>, data: Login
     e.preventDefault();
     try {
         const response = await axios.post(`${API_URL}/login`, data);
-        localStorage.setItem("token", response.data.access_token);
+        localStorage.setItem("token", response.data.token);
         router.push("/profile");
     } catch (error) {
         alert("usernameまたはpasswordが異なります");

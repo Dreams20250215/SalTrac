@@ -2,6 +2,7 @@ import os
 import json
 import sqlite3
 import traceback
+import logging
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -11,6 +12,9 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime
 from models import db, User, Post
 import pytz
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 load_dotenv()
 
@@ -50,6 +54,29 @@ def get_posts():
     ]
     return jsonify(posts_data)
 
+@app.route("/users", methods=["POST"])
+@jwt_required()
+def search_users():
+    user_id = get_jwt_identity()
+    data = request.get_json()
+
+    search_query = data.get("query", "")
+    users = User.query.filter(User.username.ilike(f"%{search_query}%")).all()
+    users_data = [
+        {
+            "userid": user.id,
+            "username": user.username,
+            "icon": user.icon if user.icon else "./user_default.png",
+            "post": user.post,
+            "follow": user.follow,
+            "follower": user.follower,
+        }
+        for user in users
+    ]
+    return jsonify(users_data), 200
+
+
+
 @app.route("/post", methods=["POST"])
 @jwt_required()
 def upload_post():
@@ -68,24 +95,6 @@ def upload_post():
     db.session.commit()
 
     return jsonify({"messsage": "Post uploaded successfully", "postid": new_post}), 201
-
-@app.route("/myprofile")
-@jwt_required()
-def get_profile():
-    user_id = get_jwt_identity()
-
-    user = User.query.get(user_id)
-
-    profile_data = {
-        "userid": user.id,
-        "username": user.username,
-        "icon": user.icon if user.icon else "./user_default.png",
-        "post": user.post,
-        "follow": user.follow,
-        "follower": user.follower,
-    }
-
-    return jsonify(profile_data), 200
 
 @app.route("/mypost", methods=["GET"])
 @jwt_required()
@@ -110,6 +119,23 @@ def get_myposts():
 
     return jsonify(myposts_data), 200
 
+@app.route("/myprofile")
+@jwt_required()
+def get_profile():
+    user_id = get_jwt_identity()
+
+    user = User.query.get(user_id)
+
+    profile_data = {
+        "userid": user.id,
+        "username": user.username,
+        "icon": user.icon if user.icon else "./user_default.png",
+        "post": user.post,
+        "follow": user.follow,
+        "follower": user.follower,
+    }
+
+    return jsonify(profile_data), 200
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -145,9 +171,9 @@ def login():
     user = User.query.filter_by(username=username).first()
 
     if user and bcrypt.check_password_hash(user.password_hash, password):
-        access_token = create_access_token(identity=user.id)
+        token = create_access_token(identity=user.id)
         print(f"Generated token for user ID: {user.id}")  # 追加
-        return jsonify({"access_token": access_token, "username": username}), 200
+        return jsonify({"token": token, "username": username}), 200
     else:
         return jsonify({"message": "Bad username or password"}), 401
     

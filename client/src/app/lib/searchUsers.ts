@@ -12,11 +12,23 @@ export type User = {
 };
 
 export const searchUsers = async (searchQuery?: string) => {
+    console.log("searchQuery:", searchQuery);
+
     try {
-        const response = await axios.post(`${API_URL}/users`, searchQuery);
+        const token = localStorage.getItem("token");
+        console.log("取得したトークン:", token);
+
+        const response = await axios.post(`${API_URL}/users`,
+            { query: searchQuery || "" },
+            { headers:
+                { 
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         return response.data;
     } catch (error) {
         console.error("Failed to fetch users:", error);
-        return [];
     }
 };
