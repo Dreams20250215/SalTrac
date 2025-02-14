@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
 import styles from "./ProfileLayout.module.css";
+import { useState, useEffect } from "react";
+import { logoutUser } from "@/app/lib/getUser";
+import Button from "@/app/components/elements/Button";
 
 type User = {
     userid: number;
@@ -15,6 +17,10 @@ type ProfileProps = {
 };
 
 export default function ProfileLayout({profile}: ProfileProps) {
+    const handleLogout = async () => {
+        await logoutUser();
+    };
+
     return (
         <>
             <div className={styles.container}>
@@ -39,6 +45,7 @@ export default function ProfileLayout({profile}: ProfileProps) {
                     </div>
                 </div>
             </div>
+            <Button onClick={() => handleLogout()} label="ログアウト" />
         </>
     );
 }

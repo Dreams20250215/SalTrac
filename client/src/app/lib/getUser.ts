@@ -1,4 +1,5 @@
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -33,4 +34,9 @@ export const loginUser = async (e: React.FormEvent<HTMLFormElement>, data: Login
     } catch (error) {
         alert("usernameまたはpasswordが異なります");
     }
+};
+
+export const logoutUser = async () => {
+    localStorage.removeItem("access_token");
+    redirect("/login");
 };
