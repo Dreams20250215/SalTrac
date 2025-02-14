@@ -95,7 +95,7 @@ def upload_post():
     db.session.add(new_post)
     db.session.commit()
 
-    return jsonify({new_post}), 201
+    return jsonify({"Success": "Post saved"}), 201
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
