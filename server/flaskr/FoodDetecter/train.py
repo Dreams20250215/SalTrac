@@ -1,7 +1,7 @@
 import os
 import torch
 from torch.utils.data import DataLoader
-from dataset import get_dataset
+from dataset import get_dataset, collate_fn_efficientnet
 from efficientnet_pytorch import EfficientNet
 from tqdm import tqdm
 
@@ -20,7 +20,7 @@ def main():
     if not os.path.exists("./log"):
         os.makedirs("./log")
 
-    train_loader = DataLoader(train_data, batch_size=32, shuffle=True, drop_last=True, cpu_num_workers=2)
+    train_loader = DataLoader(train_data, batch_size=32, shuffle=True, drop_last=True, num_workers=2, collate_fn=collate_fn_efficientnet)
     pbar = tqdm(train_loader)
     model = model.train()
 

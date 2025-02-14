@@ -1,6 +1,7 @@
 import os
 from PIL import Image
 import cv2
+import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 from food_class import food_to_id
@@ -57,3 +58,10 @@ class MyDataset(Dataset):
         image = self.post_transform(image)
 
         return image, label
+
+def collate_fn_efficientnet(batch):
+    images = [x[0] for x in batch]
+    labels = [x[1] for x in batch]
+    images = torch.stack(images, dim=0)
+    labels = torch.tensor(labels, dtype=torch.long)
+    return images, labels
