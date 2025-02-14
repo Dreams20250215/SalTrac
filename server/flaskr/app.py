@@ -4,7 +4,7 @@ import sqlite3
 import traceback
 import logging
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_sqlalchemy import SQLAlchemy
@@ -25,6 +25,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///saltrac.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
 app.config["JWT_EXPIRATION_DELTA"] = timedelta(minutes=15)
+
 CORS(app, resources={r"/*": {"origins": "*"}})
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
@@ -34,10 +35,11 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER = "./uploads"
 
 if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route("/recommends", methods=["GET"])
 def get_posts():
@@ -76,8 +78,6 @@ def search_users():
     ]
     return jsonify(users_data), 200
 
-
-
 @app.route("/post", methods=["POST"])
 @jwt_required()
 def upload_post():
@@ -86,16 +86,20 @@ def upload_post():
     salt = request.form.get("salt", 0, type=int)
     userid = get_jwt_identity()
 
-    image_path = "./no_image.png"
+    image_path = os.path.abspath(os.path.join(UPLOAD_FOLDER, image.filename))
     if image:
         image_path = os.path.join(UPLOAD_FOLDER, image.filename)
         image.save(image_path)
 
-    new_post = Post(user=userid, image=image_path, text=text, salt=salt)
+    new_post = Post(user_id=userid, image=image_path, text=text, salt=salt)
     db.session.add(new_post)
     db.session.commit()
 
-    return jsonify({"messsage": "Post uploaded successfully", "postid": new_post}), 201
+    return jsonify({new_post}), 201
+
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 @app.route("/mypost", methods=["GET"])
 @jwt_required()
@@ -113,9 +117,11 @@ def get_myposts():
 
     myposts_data = [{
         "postid": post.id,
+        "userid": user.id,
         "image": post.image,
         "text": post.text,
         "salt": post.salt,
+        "icon": user.icon,
     } for post in myposts]
 
     return jsonify(myposts_data), 200

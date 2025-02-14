@@ -22,6 +22,6 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     image = db.Column(db.Text, nullable=False, default="./no_image.png")
     text = db.Column(db.Text, nullable=False)
-    salt = db.Column(db.Integer, primary_key=True)
+    salt = db.Column(db.Integer, nullable=False)
 
     user_rel = db.relationship("User", backref=db.backref("posts", lazy=True))

@@ -3,12 +3,12 @@ services:
     build: ./client
     ports:
       - "3000:3000"
+    volumes:
+      - ./uploads:/app/uploads
   server:
     build: ./server
     ports:
       - "5000:5000"
     volumes:
-      - sqlite:/data
-
-volumes:
-  sqlite:
+      - ./uploads:/app/uploads
+      - ./server/instance:/app/instance

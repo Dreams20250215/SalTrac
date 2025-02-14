@@ -3,11 +3,12 @@ import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 export type PostData = {
-    userid: number;
     postid: number;
+    userid: number;
     image: string;
     text: string;
     salt: number;
+    icon: string;
 };
 
 export const searchPosts = async (): Promise<PostData[]> => {
