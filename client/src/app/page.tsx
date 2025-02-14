@@ -16,16 +16,19 @@ export default function Home() {
     
     useEffect(() => {
       const fetchPosts = async () => {
-        const data = await searchRecommends();
-        if(data) {
-          setRecommendPosts(data);
-        } else {
-          setRecommendPosts(samplePostData);
+        try {
+          const data = await searchRecommends();
+          if(data.length != 0) {
+            setRecommendPosts(data);
+          } else {
+            setRecommendPosts(samplePostData);
+          }
+        } catch (error) {
+          console.error("Failed to get reccomends", error);
         }
       };
       fetchPosts();
     }, []);
-    console.log(recommendPosts);
 
   return (
     <>
