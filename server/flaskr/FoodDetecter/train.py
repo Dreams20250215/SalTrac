@@ -76,11 +76,11 @@ def main():
             output = model(image)
             loss = criterion(output, label)
 
-            # Accuracy 計算
+            # calculate accuracy
             preds = output.argmax(dim=1)
             correct += (preds == label).sum().item()
             total += label.size(0)
-            acc = correct / total  # Accuracy
+            acc = correct / total
 
             pbar.set_description("loss: {:.4f}, acc: {:.4f}".format(loss.item(), acc))
             
