@@ -24,4 +24,4 @@ class Post(db.Model):
     text = db.Column(db.Text, nullable=False)
     salt = db.Column(db.Integer, nullable=False)
 
-    user_rel = db.relationship("User", backref=db.backref("posts", lazy=True))
+    user = db.relationship("User", backref=db.backref("posts", lazy=True))

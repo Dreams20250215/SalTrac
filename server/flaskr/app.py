@@ -46,8 +46,9 @@ def get_posts():
     posts = Post.query.all()
     posts_data = [
         {
+            "userid": post.user.id,
             "postid": post.id,
-            "image": post.image,
+            "image": post.image if post.image else "./no_image.png",
             "text": post.text,
             "salt": post.salt,
             "username": post.user.username,
@@ -55,7 +56,7 @@ def get_posts():
         }
         for post in posts
     ]
-    return jsonify(posts_data)
+    return jsonify(posts_data), 200
 
 @app.route("/users", methods=["POST"])
 @jwt_required()

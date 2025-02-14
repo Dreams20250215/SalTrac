@@ -9,11 +9,7 @@ import { searchRecommends } from "@/app/lib/getRecommends";
 import { PostData } from "@/app//lib/getMyPost";
 
 export default function Home() {
-  const samplePostData = [
-    {"userid": 1, "postid": 1, "image":"./no_image.png", "text":"昼ごはん！", "salt": 5, "username": "User", "icon":"./user_default.png"},
-    ];
-
-    const [recommendPosts, setRecommendPosts] = useState<PostData[]>(samplePostData);
+    const [recommendPosts, setRecommendPosts] = useState<PostData[]>([]);
     
     useEffect(() => {
       const token = localStorage.getItem("token");
@@ -24,11 +20,7 @@ export default function Home() {
       const fetchPosts = async () => {
         try {
           const data = await searchRecommends();
-          if(data.length != 0) {
             setRecommendPosts(data);
-          } else {
-            setRecommendPosts(samplePostData);
-          }
         } catch (error) {
           console.error("Failed to get reccomends", error);
         }
@@ -39,11 +31,17 @@ export default function Home() {
   return (
     <>
       <Title label="レコメンド" />
-      {recommendPosts.map((post) => (
-        <div key={post.postid} className={styles.postContainer}>
-          <PostLayout postData={post} />
+      {recommendPosts.length === 0 ? (
+        <div className={styles.textContainer}>
+          <p className={styles.statusMessage}>まだ投稿はありません</p>
         </div>
-      ))}
+      ) : (
+        recommendPosts.map((post) => (
+          <div key={post.postid}>
+            <PostLayout postData={post} />
+          </div>
+        ))
+      )}
     </>
   );
 }

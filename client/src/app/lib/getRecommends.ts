@@ -8,8 +8,8 @@ export type PostData = {
     image: string;
     text: string;
     salt: number;
-    username?: string;
-    icon?: string;
+    username: string;
+    icon: string;
 };
 
 export const searchRecommends = async (): Promise<PostData[]> => {
