@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+import cv2
 from torch.utils.data import Dataset
 from torchvision import transforms
 from food_class import food_to_id
@@ -15,13 +16,22 @@ class MyDataset(Dataset):
         elif flag == 'val':
             self.setting_path = os.path.join("/home/fuseyoshiki/Data/food-101/meta", "test.txt")
         self.all_data_path = self.get_all_data()
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomRotation(30)
+        if flag == 'train':
+            self.transform = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.RandomHorizontalFlip(p=0.5),
+                transforms.RandomRotation(30),
+                transforms.ToTensor(),
+            ])
+        elif flag == 'val':
+            self.transform = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.ToTensor()
+            ])
+        self.post_transform = transforms.Compose([
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
         ])
+
 
     def get_all_data(self):
         all_data = []
@@ -35,8 +45,15 @@ class MyDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path = self.all_data_path[idx]
-        label_name = img_path.split("/")[-2]
+        label_name = os.path.basename(os.path.dirname(img_path))
         label = food_to_id[label_name]
-        img = Image.open(img_path)
 
-        return 
+        image = cv2.imread(img_path)
+        # BGR to RGB
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        # OpenCV convert PIL
+        image = Image.fromarray(image)
+        image = self.transform(image)
+        image = self.post_transform(image)
+
+        return image, label
