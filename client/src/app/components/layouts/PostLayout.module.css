@@ -16,13 +16,13 @@
     aspect-ratio: 1 / 1;
     height: 100%;
     background-color: white;
+    border-radius: 15px;
+    border: 5px solid #ffc98a;
 }
 
 .postImage {
     width: 100%;
     height: 100%;
-    border-radius: 15px;
-    border: 5px solid #ffc98a;
 }
 
 .textContainer {
