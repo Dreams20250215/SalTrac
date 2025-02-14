@@ -1,6 +1,5 @@
 import styles from "./ProfileLayout.module.css";
 import { useState, useEffect } from "react";
-import Button from "@/app/components/elements/Button";
 
 type User = {
     userid: number;
