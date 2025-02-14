@@ -1,13 +1,13 @@
 import styles from "./PostLayout.module.css";
 
 type Post = {
-    userid: number;
-    postid: number;
-    image: string;
-    text: string;
-    salt: number;
-    username?: string;
-    icon?: string;
+    "userid": number;
+    "postid": number;
+    "image": string;
+    "text": string;
+    "salt": number;
+    "username"?: string;
+    "icon"?: string;
 };
 
 type PostProps = {

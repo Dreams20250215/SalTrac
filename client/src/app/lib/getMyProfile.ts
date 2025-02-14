@@ -12,8 +12,12 @@ export type ProfileData = {
 };
 
 export const profileData = async (): Promise<ProfileData | null> => {
+    const token = localStorage.getItem("token");
+
     try {
-        const response = await axios.get(`${API_URL}/profile`);
+        const response = await axios.get(`${API_URL}/myprofile`, {
+            headers: { Authorization: `Bearer ${token}`}
+        });
         return response.data;
     } catch (error) {
         console.error("Failed to get profile", error);

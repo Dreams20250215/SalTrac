@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 export const uploadPost = async (formData: FormData) => {
     try {
-        const response = await axios.post(`${API_URL}/mypost`, formData, {
+        const response = await axios.post(`${API_URL}/post`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             }

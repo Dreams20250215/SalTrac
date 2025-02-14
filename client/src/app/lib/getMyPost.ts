@@ -12,7 +12,7 @@ export type PostData = {
 
 export const searchPosts = async (): Promise<PostData[]> => {
     try {
-        const response = await axios.get(`${API_URL}/posts`);
+        const response = await axios.get(`${API_URL}/mypost`);
         return response.data;
     } catch (error) {
         console.error("Failed to fetch posts:", error);

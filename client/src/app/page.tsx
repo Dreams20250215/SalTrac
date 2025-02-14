@@ -9,7 +9,7 @@ import { PostData } from "@/app//lib/getMyPost";
 
 export default function Home() {
   const samplePostData = [
-    {userid: 1, postid: 1, image:"./no_image.png", text:"昼ごはん！", salt: 5, username: "User", icon:"./user_default.png"},
+    {"userid": 1, "postid": 1, "image":"./no_image.png", "text":"昼ごはん！", "salt": 5, "username": "User", "icon":"./user_default.png"},
     ];
 
     const [recommendPosts, setRecommendPosts] = useState<PostData[]>(samplePostData);

@@ -15,6 +15,7 @@ type LoginData = {
 };
 
 export const signupUser = async (e: React.FormEvent<HTMLFormElement>, data: SignupData, router: AppRouterInstance) => {
+    e.preventDefault();
     try {
         const response = await axios.post(`${API_URL}/signup`, data);
         router.push("/login");
@@ -22,13 +23,14 @@ export const signupUser = async (e: React.FormEvent<HTMLFormElement>, data: Sign
         console.error("Error signing up", error);
         alert("Sign up failed");
     }
-};
+}
 
 export const loginUser = async (e: React.FormEvent<HTMLFormElement>, data: LoginData, router: AppRouterInstance) => {
+    e.preventDefault();
     try {
         const response = await axios.post(`${API_URL}/login`, data);
         localStorage.setItem("token", response.data.access_token);
-        router.push("/");
+        router.push("/profile");
     } catch (error) {
         alert("usernameまたはpasswordが異なります");
     }
