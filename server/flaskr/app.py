@@ -9,7 +9,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from datetime import datetime
+from datetime import timedelta
 from models import db, User, Post
 import pytz
 
@@ -24,6 +24,7 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///saltrac.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
+app.config["JWT_EXPIRATION_DELTA"] = timedelta(minutes=15)
 CORS(app, resources={r"/*": {"origins": "*"}})
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)

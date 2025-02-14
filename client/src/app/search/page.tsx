@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { searchUsers, User } from "@/app/lib/searchUsers";
+import { redirect } from "next/navigation";
 import styles from "./page.module.css";
 import Title from "@/app/components/elements/Title";
 import ProfileLayout from "@/app/components/layouts/ProfileLayout";
@@ -11,6 +12,11 @@ export default function Search() {
     const [userProfiles, setUserProfiles] = useState<User[]>([]);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+            if (!token) {
+                redirect("/login");
+            }
+
         const fetchUsers = async () => {
             const data = await searchUsers(searchQuery);
             if(data) {

@@ -37,6 +37,6 @@ export const loginUser = async (e: React.FormEvent<HTMLFormElement>, data: Login
 };
 
 export const logoutUser = async () => {
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     redirect("/login");
 };

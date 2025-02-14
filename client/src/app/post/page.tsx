@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
+import { redirect } from "next/navigation";
 import { searchPosts, PostData } from "@/app/lib/getMyPost";
 import Title from "@/app/components/elements/Title";
 import PostForm from "@/app/components/layouts/PostForm";
@@ -12,6 +13,11 @@ export default function Post() {
     const [myPosts, setMyPosts] = useState<PostData[]>([]);
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+            if (!token) {
+                redirect("/login");
+            }
+
         const fetchPosts = async () => {
             try {
                 const postsData = await searchPosts();
