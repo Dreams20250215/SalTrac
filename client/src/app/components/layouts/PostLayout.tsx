@@ -17,13 +17,13 @@ type Post = {
 
 type PostProps = {
     postData: Post;
-    setMyPosts?: React.Dispatch<React.SetStateAction<Post[]>>
-    myPosts?: Post[];
+    setPosts?: React.Dispatch<React.SetStateAction<Post[]>>
+    posts?: Post[];
     showDeleteButton?: boolean;
     onLike?: (postId: number, liked: boolean) => void;
 };
 
-export default function PostLayout({ postData, setMyPosts, myPosts, showDeleteButton = true }: PostProps) {
+export default function PostLayout({ postData, setPosts, posts, showDeleteButton = true }: PostProps) {
     const [liked, setLiked] = useState(postData.likedByCurrentUser);
     const [likesCount, setLikesCount] = useState(postData.likes);
 
@@ -33,17 +33,17 @@ export default function PostLayout({ postData, setMyPosts, myPosts, showDeleteBu
     }, [postData]);
 
     const handleDeletePost = async () => {
-        if (!setMyPosts || !myPosts) return;
+        if (!setPosts || !posts) return;
         try {
             await deletePost(postData.postid);
-            setMyPosts(myPosts.filter(post => post.postid !== postData.postid));
+            setPosts(posts.filter(post => post.postid !== postData.postid));
         } catch (error) {
             console.error("Failed to delete post", error);
         }
     };
 
     const handleLikePost = async () => {
-        if (!setMyPosts || !myPosts) return;
+        if (!setPosts || !posts) return;
         try {
             let newLikedState = !liked;
             let newLikesCount = likesCount;
@@ -59,7 +59,7 @@ export default function PostLayout({ postData, setMyPosts, myPosts, showDeleteBu
             setLiked(newLikedState);
             setLikesCount(newLikesCount);
     
-            setMyPosts(myPosts.map(post =>
+            setPosts(posts.map(post =>
                 post.postid === postData.postid
                     ? { ...post, likes: newLikesCount, likedByCurrentUser: newLikedState }
                     : post

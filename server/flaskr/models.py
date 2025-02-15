@@ -60,6 +60,6 @@ class Post(db.Model):
 
     user = db.relationship("User", backref=db.backref("posts", lazy=True))
 
-    @property
-    def likes_count(self):
-        return Like.query.filter_by(post_id=self.id).count
+    
+    def get_likes_count(self):
+        return Like.query.filter_by(post_id=self.id).count()

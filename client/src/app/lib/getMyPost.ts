@@ -21,6 +21,7 @@ export const searchPosts = async (): Promise<PostData[]> => {
         const response = await axios.get(`${API_URL}/mypost`, {
             headers: { Authorization: `Bearer ${token}` },
         });
+        console.log("Fetched posts:", response.data); // ここでレスポンスを確認
         return response.data;
     } catch (error) {
         throw error;

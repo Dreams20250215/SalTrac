@@ -55,7 +55,7 @@ def get_posts():
             "salt": post.salt,
             "username": post.user.username,
             "icon": post.user.icon if post.user.icon else "./user_default.png",
-            "likes": Like.query.filter_by(post_id=post.id).count(),
+            "likes": post.get_likes_count(),
             "likedByCurrentUser": Like.query.filter_by(user_id=user_id, post_id=post.id).first() is not None
         }
         for post in posts
@@ -207,12 +207,16 @@ def get_myposts():
     myposts_data = [{
         "postid": post.id,
         "userid": user.id,
-        "image": post.image,
+        "image": post.image if post.image else "./no_image.png",
         "text": post.text,
         "salt": post.salt,
-        "icon": user.icon,
-    } for post in myposts]
-
+        "username": post.user.username,
+        "icon": user.icon if user.icon else "./user_default.png",
+        "likes": post.get_likes_count(),
+        "likedByCurrentUser": Like.query.filter_by(user_id=user_id, post_id=post.id).first() is not None
+    }
+    for post in myposts
+    ]
     return jsonify(myposts_data), 200
 
 @app.route("/delete_post/<int:post_id>", methods=["DELETE"])

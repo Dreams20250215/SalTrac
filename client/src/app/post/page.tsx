@@ -40,7 +40,7 @@ export default function Post() {
             ) : (
                 myPosts.map((post) => (
                     <div key={post.postid}>
-                        <PostLayout postData={post} setMyPosts={setMyPosts} myPosts={myPosts} />
+                        <PostLayout postData={post} setPosts={setMyPosts} posts={myPosts} />
                     </div>
                 ))
             )}
