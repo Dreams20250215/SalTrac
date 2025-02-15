@@ -3,6 +3,19 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+class Like(db.Model):
+    __tablename__ = "likes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
+
+    user = db.relationship("User", backref=db.backref("likes", lazy=True, cascade="all, delete-orphan"))
+    post = db.relationship("Post", backref=db.backref("likes", lazy=True, cascade="all, delete-orphan"))
+
+    __table_args__ = (db.UniqueConstraint("user_id", "post_id", name="unique_like"),)
+
+
 class Follow(db.Model):
     __tablename__ = "follows"
 
@@ -46,3 +59,7 @@ class Post(db.Model):
     salt = db.Column(db.Integer, nullable=False)
 
     user = db.relationship("User", backref=db.backref("posts", lazy=True))
+
+    @property
+    def likes_count(self):
+        return Like.query.filter_by(post_id=self.id).count

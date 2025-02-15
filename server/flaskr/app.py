@@ -9,7 +9,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
-from models import db, User, Post, Follow
+from models import db, User, Post, Follow, Like
 import pytz
 
 
@@ -45,6 +45,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 def get_posts():
     user_id = get_jwt_identity()
     posts = Post.query.all()
+
     posts_data = [
         {
             "userid": post.user.id,
@@ -53,11 +54,49 @@ def get_posts():
             "text": post.text,
             "salt": post.salt,
             "username": post.user.username,
-            "icon": post.user.icon if post.user.icon else "./user_default.png"
+            "icon": post.user.icon if post.user.icon else "./user_default.png",
+            "likes": Like.query.filter_by(post_id=post.id).count(),
+            "likedByCurrentUser": Like.query.filter_by(user_id=user_id, post_id=post.id).first() is not None
         }
         for post in posts
     ]
     return jsonify(posts_data), 200
+
+@app.route("/like/<int:post_id>", methods=["POST"])
+@jwt_required()
+def like_post(post_id):
+    user_id = get_jwt_identity()
+    post = Post.query.get(post_id)
+
+    if not post:
+        return jsonify({"error": "Post not found"}), 404
+    
+    existing_like = Like.query.filter_by(user_id=user_id, post_id=post_id).first()
+    if existing_like:
+        return jsonify({"message": "Already liked", "likes": Like.query.filter_by(post_id=post_id).count()}), 200
+    
+    new_like = Like(user_id=user_id, post_id=post_id)
+    db.session.add(new_like)
+    db.session.commit()
+
+    likes_count = Like.query.filter_by(post_id=post_id).count()
+    return jsonify({"message": "Liked", "likes": likes_count}), 201
+
+@app.route("/unlike/<int:post_id>", methods=["DELETE"])
+@jwt_required()
+def unlike_post(post_id):
+    user_id = get_jwt_identity()
+    like = Like.query.filter_by(user_id=user_id, post_id=post_id).first()
+
+    if not like:
+        return jsonify({"error": "Like not found"}), 404
+    
+    db.session.delete(like)
+    db.session.commit()
+
+    likes_count = Like.query.filter_by(post_id=post_id).count()
+    return jsonify({"message": "Unliked", "likes": likes_count}), 200
+
 
 @app.route("/users", methods=["POST"])
 @jwt_required()
@@ -144,6 +183,12 @@ def upload_post():
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+
+@app.route("/machine_learning")
+@jwt_required()
+def get_salt():
+    #ここにmachine leanrningをimport
+    return jsonify()
 
 @app.route("/mypost", methods=["GET"])
 @jwt_required()

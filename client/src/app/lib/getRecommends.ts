@@ -10,6 +10,8 @@ export type PostData = {
     salt: number;
     username: string;
     icon: string;
+    likes: number;
+    likedByCurrentUser: boolean;
 };
 
 export const searchRecommends = async (): Promise<PostData[]> => {

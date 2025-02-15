@@ -8,7 +8,10 @@ export type PostData = {
     image: string;
     text: string;
     salt: number;
+    username?: string;
     icon: string;
+    likes: number;
+    likedByCurrentUser: boolean;
 };
 
 export const searchPosts = async (): Promise<PostData[]> => {

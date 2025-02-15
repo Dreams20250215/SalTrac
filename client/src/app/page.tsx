@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { searchRecommends } from "@/app/lib/getRecommends";
 import { PostData } from "@/app//lib/getMyPost";
+import { likePost, unlikePost } from "./lib/getLikes";
 
 export default function Home() {
     const [recommendPosts, setRecommendPosts] = useState<PostData[]>([]);

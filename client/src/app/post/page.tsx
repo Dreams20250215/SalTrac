@@ -3,7 +3,7 @@
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
-import { searchPosts, PostData, deletePost } from "@/app/lib/getMyPost";
+import { searchPosts, PostData } from "@/app/lib/getMyPost";
 import Title from "@/app/components/elements/Title";
 import PostForm from "@/app/components/layouts/PostForm";
 import PostLayout from "@/app/components/layouts/PostLayout";
@@ -13,9 +13,9 @@ export default function Post() {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-            if (!token) {
-                redirect("/login");
-            }
+        if (!token) {
+            redirect("/login");
+        }
 
         const fetchPosts = async () => {
             try {
