@@ -8,6 +8,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_bcrypt import Bcrypt
+from werkzeug.utils import secure_filename
 from datetime import timedelta
 from models import db, User, Post, Follow, Like
 import pytz
@@ -156,6 +157,26 @@ def is_following(target_user_id):
 
     return jsonify({"success": True, "isFollowing": follow is not None}), 200
 
+@app.route("/analyze_image", methods=["POST"])
+@jwt_required()
+def analyze_image():
+    image = request.files.get("image")
+    if not image:
+        return jsonify({"error": "No image provided"}), 400
+
+    image_path = os.path.join(UPLOAD_FOLDER, image.filename)
+    image.save(image_path)
+
+    # 仮の画像認識処理 (ここにMLモデルを導入)
+    predicted_salt = dummy_predict(image_path)
+
+    return jsonify({"salt": predicted_salt}), 200
+
+def dummy_predict(image_path):
+    # 実際のモデルが導入されるまでは仮の数値を返す
+    return 2.5  # ダミーの塩分量（g）
+
+
 @app.route("/post", methods=["POST"])
 @jwt_required()
 def upload_post():
@@ -183,12 +204,6 @@ def upload_post():
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
-
-@app.route("/machine_learning")
-@jwt_required()
-def get_salt():
-    #ここにmachine leanrningをimport
-    return jsonify()
 
 @app.route("/mypost", methods=["GET"])
 @jwt_required()
