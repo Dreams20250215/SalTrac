@@ -46,14 +46,17 @@ export default function PostForm() {
                     </div>
                     <div className={styles.textContainer}>
                         <textarea className={styles.sentence} value={text} placeholder="健康的な生活をシェアしよう...！" onChange={(e) => setText(e.target.value)}></textarea>
-                        <p className={styles.nutrition}>
-                            塩分量: <input className={styles.saltMass}
-                                        type="number" min={0}
-                                        value={salt}
-                                        onChange={(e) => setSalt(Number(e.target.value))}
-                                    >
-                                    </input> g
-                        </p>
+                        <div className={styles.infoContainer}>
+                            <p className={styles.nutrition}>
+                                塩分量: <input className={styles.saltMass}
+                                            type="number" min={0}
+                                            value={salt}
+                                            onChange={(e) => setSalt(Number(e.target.value))}
+                                        >
+                                        </input> g
+                            </p>
+                            <button className={styles.MLButton}>画像認識</button>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.changeFile}>
