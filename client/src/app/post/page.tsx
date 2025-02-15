@@ -10,7 +10,6 @@ import PostLayout from "@/app/components/layouts/PostLayout";
 
 export default function Post() {
     const [myPosts, setMyPosts] = useState<PostData[]>([]);
-    const [updated, setUpdated] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -27,16 +26,7 @@ export default function Post() {
             }
         }
         fetchPosts();
-    }, [updated]);
-
-    const handleDelete = async (postid: number) => {
-        try {
-            await deletePost(postid);
-            setUpdated((prev) => !prev);
-        } catch (error) {
-            console.error("Failed to delete post:", error);
-        }
-    };
+    }, []);
 
     return (
         <>
@@ -50,7 +40,7 @@ export default function Post() {
             ) : (
                 myPosts.map((post) => (
                     <div key={post.postid}>
-                        <PostLayout postData={post} onDelete={() => handleDelete(post.postid)} />
+                        <PostLayout postData={post} setMyPosts={setMyPosts} myPosts={myPosts} />
                     </div>
                 ))
             )}

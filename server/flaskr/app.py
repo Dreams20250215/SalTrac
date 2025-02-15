@@ -44,7 +44,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @jwt_required()
 def get_posts():
     user_id = get_jwt_identity()
-    posts = Post.query.filter(Post.user_id != user_id).all()
+    posts = Post.query.all()
     posts_data = [
         {
             "userid": post.user.id,

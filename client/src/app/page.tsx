@@ -38,7 +38,7 @@ export default function Home() {
       ) : (
         recommendPosts.map((post) => (
           <div key={post.postid}>
-            <PostLayout postData={post} />
+            <PostLayout postData={post} showDeleteButton={false} />
           </div>
         ))
       )}

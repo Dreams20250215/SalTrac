@@ -8,20 +8,24 @@ type Post = {
     text: string;
     salt: number;
     username?: string;
-    icon?: string;
+    icon: string;
 };
 
 type PostProps = {
     postData: Post;
+    setMyPosts?: React.Dispatch<React.SetStateAction<Post[]>>
+    myPosts?: Post[];
+    showDeleteButton?: boolean;
 };
 
-export default function PostLayout({postData}: PostProps) {
+export default function PostLayout({ postData, setMyPosts, myPosts, showDeleteButton  = true }: PostProps) {
     const handleDeletePost = async () => {
+        if (!setMyPosts || !myPosts) return;
         try {
-            const response = await deletePost(postData.postid)
-            return response.data;
+            await deletePost(postData.postid);
+            setMyPosts(myPosts.filter(post => post.postid !== postData.postid));
         } catch (error) {
-            throw error;
+            console.error("Failed to delete post", error);
         }
     };
 
@@ -34,7 +38,9 @@ export default function PostLayout({postData}: PostProps) {
                 <div className={styles.textContainer}>
                     <div className={styles.wrapper}>
                         <p className={styles.username}>{postData.username}</p>
-                        <span onClick={handleDeletePost} className={styles.deleteButton}></span>
+                        {showDeleteButton && (
+                            <span onClick={handleDeletePost} className={styles.deleteButton}></span>
+                        )}
                     </div>
                     <p className={styles.sentence}>{postData.text}</p>
                     <div className={styles.infoContainer}>
