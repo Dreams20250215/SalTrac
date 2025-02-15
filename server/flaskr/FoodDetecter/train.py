@@ -61,13 +61,13 @@ def main():
 
     train_loader = DataLoader(train_data, batch_size=32, shuffle=True, drop_last=True, num_workers=2, collate_fn=collate_fn_efficientnet)
     val_loader = DataLoader(val_data, batch_size=32, shuffle=False, drop_last=False, num_workers=2, collate_fn=collate_fn_efficientnet)
-    pbar = tqdm(train_loader)
     model = model.train()
 
     global_step = 1
     epoch = 100
 
     for i in range(100):
+        pbar = tqdm(train_loader)
         for i, batch in enumerate(pbar):
             image, label = batch
             image = image.to(device)
@@ -77,6 +77,8 @@ def main():
             loss = criterion(output, label)
 
             # calculate accuracy
+            total = 0
+            correct = 0
             preds = output.argmax(dim=1)
             correct += (preds == label).sum().item()
             total += label.size(0)
