@@ -41,7 +41,7 @@ export default function PostForm() {
         <>
             <form>
                 <div className={styles.container}>
-                    <div className={styles.imageFrame}>
+                    <div className={styles.imageContainer}>
                         <img src={postImage} className={styles.postImage} alt="post-image" />
                     </div>
                     <div className={styles.textContainer}>

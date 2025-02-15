@@ -41,7 +41,7 @@ export default function Profile() {
     return (
         <>
             <Title label="プロフィール" />
-            <ProfileLayout profile={profile} />
+            <ProfileLayout profile={profile} loggedInUserId={profile.userid} token="token" />
             <Button onClick={handleLogout} label="ログアウト" />
         </>
     );

@@ -8,7 +8,6 @@ import Title from "@/app/components/elements/Title";
 import PostForm from "@/app/components/layouts/PostForm";
 import PostLayout from "@/app/components/layouts/PostLayout";
 
-
 export default function Post() {
     const [myPosts, setMyPosts] = useState<PostData[]>([]);
 

@@ -7,10 +7,9 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
-from models import db, User, Post
+from models import db, User, Post, Follow
 import pytz
 
 
@@ -24,7 +23,7 @@ app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///saltrac.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
-app.config["JWT_EXPIRATION_DELTA"] = timedelta(minutes=15)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 
 CORS(app, resources={r"/*": {"origins": "*"}})
 jwt = JWTManager(app)
@@ -72,12 +71,49 @@ def search_users():
             "username": user.username,
             "icon": user.icon if user.icon else "./user_default.png",
             "post": user.post,
-            "follow": user.follow,
-            "follower": user.follower,
+            "follow": user.follow_count,
+            "follower": user.follower_count,
         }
         for user in users
     ]
     return jsonify(users_data), 200
+
+@app.route("/follow", methods=["POST"])
+@jwt_required()
+def follow_user():
+    user_id = get_jwt_identity()
+    data = request.get_json()
+    print("Received follow request:", data)
+    target_user_id = data.get("userId")
+
+    if not target_user_id:
+        return jsonify({"success": False, "message": "Invalid user ID"}), 400
+    
+    target_user = User.query.get(target_user_id)
+
+    if not target_user:
+        return jsonify({"success": False, "message": "User not found"}), 400
+    
+    existing_follow = Follow.query.filter_by(follower_id=user_id, followed_id=target_user_id).first()
+
+    if existing_follow:
+        db.session.delete(existing_follow)
+        db.session.commit()
+        return jsonify({"success": True, "following": False, "updatedFollowerCount": target_user.follower_count}), 200
+    else:
+        new_follow = Follow(follower_id=user_id, followed_id=target_user_id)
+        db.session.add(new_follow)
+        db.session.commit()
+        return jsonify({"success": True, "following": True, "updatedFollowerCount": target_user.follower_count}), 200
+
+@app.route("/is_following/<int:target_user_id>", methods=["GET"])
+@jwt_required()
+def is_following(target_user_id):
+    user_id = get_jwt_identity()
+    
+    follow = Follow.query.filter_by(follower_id=user_id, followed_id=target_user_id).first()
+
+    return jsonify({"success": True, "isFollowing": follow is not None}), 200
 
 @app.route("/post", methods=["POST"])
 @jwt_required()
@@ -87,6 +123,8 @@ def upload_post():
     salt = request.form.get("salt", 0, type=int)
     userid = get_jwt_identity()
 
+    user = User.query.get(userid)
+
     image_path = os.path.abspath(os.path.join(UPLOAD_FOLDER, image.filename))
     if image:
         image_path = os.path.join(UPLOAD_FOLDER, image.filename)
@@ -94,6 +132,9 @@ def upload_post():
 
     new_post = Post(user_id=userid, image=image_path, text=text, salt=salt)
     db.session.add(new_post)
+
+    user.post += 1
+
     db.session.commit()
 
     return jsonify({"Success": "Post saved"}), 201
@@ -131,7 +172,6 @@ def get_myposts():
 @jwt_required()
 def get_profile():
     user_id = get_jwt_identity()
-
     user = User.query.get(user_id)
 
     profile_data = {
@@ -139,8 +179,8 @@ def get_profile():
         "username": user.username,
         "icon": user.icon if user.icon else "./user_default.png",
         "post": user.post,
-        "follow": user.follow,
-        "follower": user.follower,
+        "follow": user.follow_count,
+        "follower": user.follower_count,
     }
 
     return jsonify(profile_data), 200
@@ -160,8 +200,6 @@ def signup():
         username=username,
         password_hash=bcrypt.generate_password_hash(password).decode("utf-8"),
         post = 0,
-        follow=0,
-        follower=0,
         icon="./user_default.png"
     )
     
