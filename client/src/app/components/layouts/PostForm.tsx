@@ -1,6 +1,6 @@
 import styles from "./PostForm.module.css";
 import { useState, ChangeEvent } from "react";
-import { uploadPost } from "@/app/lib/uploadPost";
+import { uploadPost, analyzeImage } from "@/app/lib/uploadPost";
 import Button from "@/app/components/elements/Button";
 
 export default function PostForm() {
@@ -19,6 +19,23 @@ export default function PostForm() {
         }
     };
 
+    const handleAnalyzeImage = async () => {
+        if (!imageFile) {
+            alert("画像を選択してください");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("image", imageFile);
+
+        const response = await analyzeImage(formData);
+        if (response?.salt !== undefined) {
+            setSalt(response.salt);
+        } else {
+            alert("画像認識に失敗しました");
+        }
+    };
+
     const handleUploadPost = async () => {
         if (!imageFile || !text || !salt) {
             alert("すべての項目を入力してください");
@@ -26,15 +43,12 @@ export default function PostForm() {
         }
 
         const formData = new FormData();
-        formData.append("image", imageFile);
+
+        formData.append("image", imageFile)
         formData.append("text", text);
         formData.append("salt", salt.toString());
 
-        for (let pair of formData.entries()) {
-            console.log(pair[0], pair[1]);
-        }
-
-        const response = await uploadPost(formData);
+        await uploadPost(formData);
     };
 
     return (
@@ -50,12 +64,12 @@ export default function PostForm() {
                             <p className={styles.nutrition}>
                                 塩分量: <input className={styles.saltMass}
                                             type="number" min={0}
-                                            value={salt}
+                                            value={salt !== null ? salt : ""}
                                             onChange={(e) => setSalt(Number(e.target.value))}
                                         >
                                         </input> g
                             </p>
-                            <button className={styles.MLButton}>画像認識</button>
+                            <button className={styles.MLButton} onClick={handleAnalyzeImage} type="button">画像認識</button>
                         </div>
                     </div>
                 </div>
