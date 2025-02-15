@@ -228,6 +228,9 @@ def delete(post_id):
     if not post or post.user_id != user_id:
         return jsonify({"error": "Post not found or unauthorized"}), 403
     
+    user = User.query.get(user_id)
+    user.post -= 1
+
     db.session.delete(post)
     db.session.commit()
 
