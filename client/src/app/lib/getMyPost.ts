@@ -28,7 +28,7 @@ export const deletePost = async (postid: number) => {
     const token = localStorage.getItem("token");
 
     try {
-        const response = await axios.get(`${API_URL}/delete_post/${postid}`, {
+        const response = await axios.delete(`${API_URL}/delete_post/${postid}`, {
             headers: { Authorization: `Bearer ${token}`},
         });
         return response.data;
