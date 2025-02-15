@@ -31,6 +31,40 @@
     font-size: clamp(0.5rem, calc(0.6rem + 0.9vw), 1.2rem);
 }
 
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteButton {
+    display: block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.deleteButton::before, .deleteButton::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 17px;
+    background: #000;
+    cursor: pointer;
+}
+
+.deleteButton::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.deleteButton::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 .sentence {
     height: 70%;
     margin: 2% 0;
@@ -42,6 +76,5 @@
 }
 
 .userIcon {
-    margin-right: 2%;
     height: 30px;
 }

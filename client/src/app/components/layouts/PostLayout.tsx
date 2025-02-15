@@ -1,4 +1,5 @@
 import styles from "./PostLayout.module.css";
+import { deletePost } from "@/app/lib/getMyPost";
 
 type Post = {
     userid: number;
@@ -15,6 +16,15 @@ type PostProps = {
 };
 
 export default function PostLayout({postData}: PostProps) {
+    const handleDeletePost = async () => {
+        try {
+            const response = await deletePost(postData.postid)
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    };
+
     return (
         <div>
             <div className={styles.container}>
@@ -22,7 +32,10 @@ export default function PostLayout({postData}: PostProps) {
                     <img src={postData.image} className={styles.postImage} alt="post-image" />
                 </div>
                 <div className={styles.textContainer}>
-                    <p className={styles.username}>{postData.username}</p>
+                    <div className={styles.wrapper}>
+                        <p className={styles.username}>{postData.username}</p>
+                        <span onClick={handleDeletePost} className={styles.deleteButton}></span>
+                    </div>
                     <p className={styles.sentence}>{postData.text}</p>
                     <div className={styles.infoContainer}>
                         <p className={styles.nutrition}>塩分量: {postData.salt} g</p>
@@ -32,4 +45,4 @@ export default function PostLayout({postData}: PostProps) {
             </div>
         </div>
     );
-}
+};

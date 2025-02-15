@@ -41,8 +41,10 @@ if not os.path.exists(UPLOAD_FOLDER):
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route("/recommends", methods=["GET"])
+@jwt_required()
 def get_posts():
-    posts = Post.query.all()
+    user_id = get_jwt_identity()
+    posts = Post.query.filter(Post.user_id != user_id).all()
     posts_data = [
         {
             "userid": post.user.id,
@@ -167,6 +169,20 @@ def get_myposts():
     } for post in myposts]
 
     return jsonify(myposts_data), 200
+
+@app.route("/delete_post/<int:post_id>", methods=["DELETE"])
+@jwt_required()
+def delete(post_id):
+    user_id = get_jwt_identity()
+    post = Post.query.get(post_id)
+
+    if not post or post.user_id != user_id:
+        return jsonify({"error": "Post not found or unauthorized"}), 403
+    
+    db.session.delete(post)
+    db.session.commit()
+
+    return jsonify({"success": True, "message": "Post deleted"}), 200
 
 @app.route("/myprofile")
 @jwt_required()
