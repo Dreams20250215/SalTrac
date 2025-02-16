@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
-const token = localStorage.getItem("token");
 
 export const uploadPost = async (formData: FormData) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.post(`${API_URL}/post`, formData, {
             headers: {
@@ -17,6 +17,7 @@ export const uploadPost = async (formData: FormData) => {
 };
 
 export const analyzeImage = async (formData: FormData) => {
+    const token = localStorage.getItem("token");
     try {
         const response = await axios.post(`${API_URL}/analyze_image`, formData, {
             headers: {
