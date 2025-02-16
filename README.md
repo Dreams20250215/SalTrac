@@ -39,7 +39,8 @@ docker-compose up -d
 ```sh
 # フロントエンド起動
 cd client
-npm run dev
+npm run build
+npm run start
 
 # バックエンド起動
 cd ../server
@@ -70,12 +71,7 @@ python app.py
 ### バックエンド
 
 - Flask
-- SQLite
 
 ### 画像認識
 
--
-
-## ライセンス
-
-MIT License
+- PyTorch
