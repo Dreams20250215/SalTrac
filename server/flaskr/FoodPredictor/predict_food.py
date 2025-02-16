@@ -11,7 +11,7 @@ device = torch.device("cpu")
 
 # load model
 food_detector = EfficientNet.from_name('efficientnet-b0').eval().to(device)
-checkpoint = torch.load("trained_model/food_predictor_72000.pth", map_location=device)
+checkpoint = torch.load("./trained_model/food_predictor_72000.pth", map_location=device)
 food_detector.load_state_dict(checkpoint['model'])
 
 
