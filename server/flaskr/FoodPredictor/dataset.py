@@ -4,7 +4,7 @@ import cv2
 import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
-from food_class import food_to_id
+from FoodPredictor.food_class import food_to_id
 
 def get_dataset(flag='train'):
     return MyDataset("/home/fuseyoshiki/Data/food-101/images", flag)

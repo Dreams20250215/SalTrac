@@ -1,8 +1,8 @@
 import os
 import torch
 from torch.utils.data import DataLoader
-from dataset import get_dataset, collate_fn_efficientnet
-from efficientnet_pytorch import EfficientNet
+from FoodPredictor.dataset import get_dataset, collate_fn_efficientnet
+from FoodPredictor.efficientnet_pytorch import EfficientNet
 from tqdm import tqdm
 
 
