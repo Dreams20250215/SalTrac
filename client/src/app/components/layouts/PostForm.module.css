@@ -67,8 +67,10 @@
 }
 
 .MLButton {
+    padding: 4px;
     margin-right: 5%;
-    background-color: #a9cdd4;
+    border: none;
+    background-color: #ffe17dd0;
     cursor: pointer;
     border-radius: 3px;
 }
