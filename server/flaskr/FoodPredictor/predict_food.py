@@ -11,7 +11,7 @@ device = torch.device("cpu")
 
 # load model
 food_detector = EfficientNet.from_name('efficientnet-b0').eval().to(device)
-checkpoint = torch.load("./trained_model/food_predictor_72000.pth", map_location=device)
+checkpoint = torch.load("./flaskr/FoodPredictor/trained_model/food_predictor_72000.pth", map_location=device)
 food_detector.load_state_dict(checkpoint['model'])
 
 
@@ -34,7 +34,7 @@ def predict_food_salt(food_data_path):
         prob_class = torch.softmax(output,dim=1)[0][pred_class_id].item()
         _, pred_food_name, salt = food_databae[pred_class_id]
 
-    return pred_class_id, pred_food_name, salt, prob_class 
+    return salt
 
 
 if __name__ == '__main__':
