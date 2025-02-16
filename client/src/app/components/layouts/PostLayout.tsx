@@ -86,7 +86,7 @@ export default function PostLayout({ postData, setPosts, posts, showDeleteButton
                 <div className={styles.infoContainer}>
                     <p className={styles.nutrition}>塩分量: {postData.salt} g</p>
                     <button onClick={handleLikePost} className={styles.likeButton}>
-                        {liked ? "💛" : "💙"} {likesCount}
+                        {liked ? "💛" : "♥"} {likesCount}
                     </button>
                     <img src={postData.icon} className={styles.userIcon} alt="user-icon" />
                 </div>
