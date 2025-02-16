@@ -12,6 +12,7 @@ from werkzeug.utils import secure_filename
 from datetime import timedelta
 from models import db, User, Post, Follow, Like
 import pytz
+from FoodPredictor.predict_food import predict_food_salt
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -168,13 +169,9 @@ def analyze_image():
     image.save(image_path)
 
     # 仮の画像認識処理 (ここにMLモデルを導入)
-    predicted_salt = dummy_predict(image_path)
+    predicted_salt = predict_food_salt(image_path)
 
-    return jsonify({"salt": predicted_salt}), 200
-
-def dummy_predict(image_path):
-    # 実際のモデルが導入されるまでは仮の数値を返す
-    return 2.5  # ダミーの塩分量（g）
+    return predicted_salt, 200
 
 
 @app.route("/post", methods=["POST"])
