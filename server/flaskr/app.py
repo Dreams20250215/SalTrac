@@ -169,9 +169,9 @@ def analyze_image():
     image.save(image_path)
 
     # 仮の画像認識処理 (ここにMLモデルを導入)
-    predicted_salt = returnnum(image_path)
+    predicted_salt = predict_food_salt(image_path)
 
-    return predicted_salt, 200
+    return jsonify({"salt": predicted_salt})
 
 def returnnum(image_path):
     return 2

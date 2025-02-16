@@ -68,6 +68,9 @@
 
 .MLButton {
     margin-right: 5%;
+    background-color: #a9cdd4;
+    cursor: pointer;
+    border-radius: 3px;
 }
 
 .changeFile {

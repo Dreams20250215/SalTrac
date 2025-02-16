@@ -63,7 +63,7 @@ export default function PostForm() {
                         <div className={styles.infoContainer}>
                             <p className={styles.nutrition}>
                                 塩分量: <input className={styles.saltMass}
-                                            type="number" min={0}
+                                            type="number" step="0.1" min={0}
                                             value={salt !== null ? salt : ""}
                                             onChange={(e) => setSalt(Number(e.target.value))}
                                         >
