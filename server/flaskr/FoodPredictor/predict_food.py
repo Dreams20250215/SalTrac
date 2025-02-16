@@ -2,9 +2,9 @@ import torch
 from PIL import Image
 import cv2
 from torchvision import transforms
-from efficientnet_pytorch import EfficientNet
-from food_class import id_to_food, food_databae
-from dataset import get_dataset
+from FoodPredictor.efficientnet_pytorch import EfficientNet
+from FoodPredictor.food_class import id_to_food, food_databae
+from FoodPredictor.dataset import get_dataset
 
 
 device = torch.device("cpu")
