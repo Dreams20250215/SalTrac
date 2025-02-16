@@ -60,6 +60,16 @@ class Post(db.Model):
 
     user = db.relationship("User", backref=db.backref("posts", lazy=True))
 
+<<<<<<< HEAD
     
     def get_likes_count(self):
         return Like.query.filter_by(post_id=self.id).count()
+=======
+
+class Food(db.Model):
+    __tablename__ = "foods"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    salt = db.Column(db.Float, nullable=False)
+>>>>>>> 5be8f23 (complete model)
