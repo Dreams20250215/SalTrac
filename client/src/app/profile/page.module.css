@@ -1,35 +1,35 @@
 .container {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .imageContainer {
-    margin: 0 5%;
-    width: 150px;
-    height: 150px;
+  margin: 0 5%;
+  width: 150px;
+  height: 150px;
 }
 
 .userIcon {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
 
 .profileInfo {
-    padding-bottom: 10px;
-    width: 60%;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
-    font-size: 1.2rem;
+  padding-bottom: 10px;
+  width: 60%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  font-size: 1.2rem;
 }
 
 .status {
-    text-align: center;
-    display: flex;
+  text-align: center;
+  display: flex;
 }
 
 .itemContainer {
-    width: 30%;
-    display: flex;
-    flex-flow: column;
+  width: 30%;
+  display: flex;
+  flex-flow: column;
 }

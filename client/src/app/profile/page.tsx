@@ -10,39 +10,39 @@ import ProfileLayout from "@/app/components/layouts/ProfileLayout";
 import Button from "@/app/components/elements/Button";
 
 const defaultProfile: ProfileData = {
-    userid: 0,
-    username: "guest",
-    icon: "./user_default.png",
-    post: 0,
-    follow: 0,
-    follower: 0,
+  userid: 0,
+  username: "guest",
+  icon: "./user_default.png",
+  post: 0,
+  follow: 0,
+  follower: 0,
 };
 
 export default function Profile() {
-    const [profile, setProfile] = useState(defaultProfile);
+  const [profile, setProfile] = useState(defaultProfile);
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            redirect("/login");
-        }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      redirect("/login");
+    }
 
-        const fetchProfile = async () => {
-            const data = await profileData();
-            setProfile(data ?? defaultProfile);
-        };
-        fetchProfile();
-    }, []);
-
-    const handleLogout = async () => {
-        await logoutUser();
+    const fetchProfile = async () => {
+      const data = await profileData();
+      setProfile(data ?? defaultProfile);
     };
+    fetchProfile();
+  }, []);
 
-    return (
-        <>
-            <Title label="プロフィール" />
-            <ProfileLayout profile={profile} loggedInUserId={profile.userid} token="token" />
-            <Button onClick={handleLogout} label="ログアウト" />
-        </>
-    );
+  const handleLogout = async () => {
+    await logoutUser();
+  };
+
+  return (
+    <>
+      <Title label="プロフィール" />
+      <ProfileLayout profile={profile} loggedInUserId={profile.userid} token="token" />
+      <Button onClick={handleLogout} label="ログアウト" />
+    </>
+  );
 }

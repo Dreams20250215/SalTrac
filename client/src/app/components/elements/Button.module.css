@@ -1,15 +1,15 @@
 .container {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 .button {
-    padding: 10px;
-    margin-bottom: 20px;
-    min-width: 70px;
-    border: none;
-    border-radius: 8px;
-    font-size: clamp(0.2rem, calc(0.4rem + 1.2vw), 1.2rem);
-    background-color: #a9cdd4;
-    cursor: pointer;
+  padding: 10px;
+  margin-bottom: 20px;
+  min-width: 70px;
+  border: none;
+  border-radius: 8px;
+  font-size: clamp(0.2rem, calc(0.4rem + 1.2vw), 1.2rem);
+  background-color: #a9cdd4;
+  cursor: pointer;
 }

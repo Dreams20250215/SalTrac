@@ -1,48 +1,48 @@
 .container {
-    display: flex;
-    justify-content: space-around;
-    padding-bottom: 20px;
-    height: 25vw;
-    max-height: 200px;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20px;
+  height: 25vw;
+  max-height: 200px;
 }
 
 .imageContainer {
-    margin: 0 5%;
-    aspect-ratio: 1 / 1;
-    height: 100%;
-    align-items: center;
+  margin: 0 5%;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  align-items: center;
 }
 
 .userIcon {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
 
 .profileInfo {
-    padding-bottom: 10px;
-    width: 60%;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
-    font-size: clamp(0.5rem, calc(0.5rem + 1vw), 1.2rem);
+  padding-bottom: 10px;
+  width: 60%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  font-size: clamp(0.5rem, calc(0.5rem + 1vw), 1.2rem);
 }
 
 .usernameContainer {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .username {
-    display: inline-block;
+  display: inline-block;
 }
 
 .status {
-    text-align: center;
-    display: flex;
+  text-align: center;
+  display: flex;
 }
 
 .itemContainer {
-    width: 30%;
-    display: flex;
-    flex-flow: column;
+  width: 30%;
+  display: flex;
+  flex-flow: column;
 }
