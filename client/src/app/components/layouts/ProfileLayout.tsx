@@ -55,7 +55,7 @@ export default function ProfileLayout({ profile, loggedInUserId, token, onFollow
             <h3 className={styles.username}>{`ユーザー名: ${profile.username}`}</h3>
             <div className={styles.followButtonContainer}>
               {loggedInUserId !== profile.userid && (
-                <Button onClick={handleFollowUser} label={isFollowing ? "フォロー解除" : "フォロー"} />
+                <Button onClick={handleFollowUser}>{isFollowing ? "フォロー解除" : "フォロー"}</Button>
               )}
             </div>
           </div>

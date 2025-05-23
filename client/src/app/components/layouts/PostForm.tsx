@@ -76,7 +76,7 @@ export default function PostForm() {
         <div className={styles.changeFile}>
           <input type="file" accept=".jpg" onChange={handleChangeImage}/>
         </div>
-        <Button onClick={handleUploadPost} label="投稿" />
+        <Button onClick={handleUploadPost}>投稿</Button>
       </form>
     </>
   );

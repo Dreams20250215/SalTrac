@@ -1,21 +1,16 @@
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import styles from "./Button.module.css"
 
-type ButtonProps = {
-  onClick?: () => void;
-  label: string;
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode;
 };
 
-export default function Button(props: ButtonProps) {
-  const onClick = props.onClick
-  const label = props.label
+export default function Button({ children, ...props }: Props) {
 
   return (
     <div className={styles.container}>
-      <button
-      onClick={onClick}
-      className={styles.button}
-      >
-        {label}
+      <button className={styles.button} {...props} >
+        {children}
       </button>
     </div>
   );

@@ -42,7 +42,7 @@ export default function Profile() {
     <>
       <Title label="プロフィール" />
       <ProfileLayout profile={profile} loggedInUserId={profile.userid} token="token" />
-      <Button onClick={handleLogout} label="ログアウト" />
+      <Button onClick={handleLogout}>ログアウト</Button>
     </>
   );
 }

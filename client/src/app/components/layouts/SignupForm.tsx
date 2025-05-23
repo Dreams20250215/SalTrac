@@ -49,7 +49,7 @@ export default function SignupForm() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button label="サインアップ"/>
+        <Button>サインアップ</Button>
         <div className={styles.linkContainer}>
           <a href="../login">ログイン</a>
         </div>
